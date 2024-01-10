@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Word Replacement Tool</title>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Word Replacement Tool</h2>
+
+    <form id="replacementForm">
+        <div class="form-group">
+            <label for="originalText">Original Text:</label>
+            <textarea class="form-control" id="originalText" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="targetWord">Target Word:</label>
+            <input type="text" class="form-control" id="targetWord" required>
+        </div>
+
+        <div class="form-group">
+            <label for="replacementWord">Replacement Word:</label>
+            <input type="text" class="form-control" id="replacementWord" required>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="replaceWords()">Replace Words</button>
+    </form>
+
+    <div class="mt-4">
+        <h4>Result:</h4>
+        <div id="result"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    function replaceExactCaseButDiffWord(input, targetWord, desiredWord) {
+        const regexOfWordToBeReplaced = RegExp(targetWord, 'i');
+        let output = input;
+
+        while (output.match(regexOfWordToBeReplaced)) {
+            const match = output.match(regexOfWordToBeReplaced);
+            const matchedWord = match[0];
+            let result = '';
+
+            for (let i = 0; i < matchedWord.length; i++) {
+                result += /[a-z]/.test(matchedWord[i]) ? desiredWord[i].toLowerCase() : desiredWord[i].toUpperCase();
+            }
+
+            output = output.replace(regexOfWordToBeReplaced, result);
+        }
+
+        return output;
+    }
+
+    function replaceWords() {
+        var originalText = document.getElementById("originalText").value;
+        var targetWord = document.getElementById("targetWord").value;
+        var replacementWord = document.getElementById("replacementWord").value;
+
+        var modifiedText = replaceExactCaseButDiffWord(originalText, targetWord, replacementWord);
+
+        document.getElementById("result").innerHTML = "<p>" + modifiedText + "</p>";
+    }
+</script>
+
+</body>
+</html>
+
