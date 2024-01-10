@@ -9,9 +9,7 @@ rahul
 raHul
 ``
 
-I want to replace that name completely. So need to focus on all of them.
-
-Target word is `rahul`, which I want to replace that with nihar. In that case the output should be:
+And, you want to replace that all of names the document has. If our target word is `rahul`, which you want to replace with nihar. In that case the output should be:
 ``
 Nihar
 nihar
